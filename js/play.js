@@ -8,7 +8,6 @@ let gameOver = false;
 // global variable to keep track of score
 let score = 0;
 
-
 // timer function in seconds(a)
 let a = 20;
 const i = setInterval(timer, 1000); //eslint-disable-line
@@ -41,7 +40,8 @@ if(localStorage.objArray){
         const obj = new ShortCut(objArrayArray[i].keys, objArrayArray[i].description, objArrayArray[i].gifURL, objArrayArray[i].keyCode, objArrayArray[i].score);
         objArray.push(obj);
     }
-}else{
+}
+else{
     // object instances
     const cutLine = new ShortCut(['ctrl', 'x'], 'Removes selected line.', 'img/ctrlX.gif', [17, 88]);
     const toggleWrap = new ShortCut(['alt', 'z'], 'Will toggle word wrap on and off.', 'img/altZ.gif', [18, 90]);
@@ -64,7 +64,6 @@ function ShortCut(keys, description, gifURL, keyCode, score){
     this.keyCode = keyCode;
     this.score = score || 0;
 }
-
 // function to render key and description elements
 ShortCut.prototype.renderGifs = function(description, gifURL) {
     const quiz = document.getElementById('quiz');
@@ -77,7 +76,6 @@ ShortCut.prototype.renderGifs = function(description, gifURL) {
     quiz.appendChild(ele);
     quiz.appendChild(desc);
 };
-
 // functions to render gifs and description elements to quiz play page
 function render(){
 
@@ -94,7 +92,7 @@ function moveForward(){
     Make so that all calls to moveForward use the argument true.
     Make all functionality to moveForward that increments a score conditional on correct.
     Refactor auto advance after 20 seconds to call moveForward (false)*/
-    const ele = document.getElementById('quiz');    
+    const ele = document.getElementById('quiz');
     // remove elements from page
     while(ele.hasChildNodes()){
         ele.removeChild(ele.lastChild);
@@ -110,7 +108,7 @@ function moveForward(){
     if (gameOver) {
         drawChart();
     }
-    else{ 
+    else{
         render();
     }
 }
@@ -128,7 +126,6 @@ onkeydown = onkeyup = function(e){ //eslint-disable-line
             moveForward();
         }
     }
-
     if(objArray[globalI].keys.length === 3){
         if(map[objArray[globalI].keyCode[0]] && map[objArray[globalI].keyCode[1]] && map[objArray[globalI].keyCode[2]]){
             moveForward();
@@ -140,7 +137,6 @@ onkeydown = onkeyup = function(e){ //eslint-disable-line
         }
     }
 };
-
 function drawChart () {
     const chartCanvas = document.getElementById('myChart');
     const context = chartCanvas.getContext('2d');
@@ -158,7 +154,6 @@ function drawChart () {
         // shortcutNames.push(objArray[i].keys);
         // shownData.push(itemList[i].shown);
     }
-
     const chart = new Chart ( // eslint-disable-line
         context,
         {
