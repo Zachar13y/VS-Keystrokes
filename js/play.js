@@ -3,6 +3,7 @@
 // global vaiable keeping track of what question you're on
 let globalI = 0;
 let objArray = [];
+let gameOver = false;
 
 // global variable to keep track of score
 let score = 0;
@@ -101,11 +102,12 @@ function moveForward(){
     score++;
     objArray[globalI].score++;
     // render new elements
-    if(globalI < 10){
-        render();
-    }else if(globalI === 10){
+    if (gameOver) {
         drawChart();
-    }else{}
+    }
+    else{ 
+        render();
+    }
 }
 // keyboard even handler section
 const map = [];
@@ -118,7 +120,7 @@ onkeydown = onkeyup = function(e){ //eslint-disable-line
     if(objArray[globalI].keys.length === 2){
         // check if keys inputted are correct for the object instance
         if(map[objArray[globalI].keyCode[0]] && map[objArray[globalI].keyCode[1]]){
-            moveForward();     
+            moveForward();
         }
     }
 
@@ -205,5 +207,8 @@ function drawChart () {
 function incrementGlobalI(){
     if (globalI < objArray.length - 1)  {
         globalI++;
+    }
+    else {
+        gameOver = true;
     }
 }
