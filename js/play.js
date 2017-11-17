@@ -89,6 +89,11 @@ function render(){
 render();
 
 function moveForward(){
+    /*To do: 
+    Add a parameter to moveForward called correct.
+    Make so that all calls to moveForward use the argument true.
+    Make all functionality to moveForward that increments a score conditional on correct.
+    Refactor auto advance after 20 seconds to call moveForward (false)*/
     const ele = document.getElementById('quiz');    
     // remove elements from page
     while(ele.hasChildNodes()){
