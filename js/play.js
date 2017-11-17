@@ -21,7 +21,7 @@ function timer() {
         }
 
         // move to next question
-        globalI++;
+        incrementGlobalI();
         if(globalI < 10){
             render();
         }else if(globalI === 10){
@@ -87,10 +87,29 @@ function render(){
 }
 render();
 
+function moveForward(){
+    const ele = document.getElementById('quiz');    
+    // remove elements from page
+    while(ele.hasChildNodes()){
+        ele.removeChild(ele.lastChild);
+    }
+    // track what question you're on
+    incrementGlobalI();
+    // resets timer
+    a = 20;
+    // track score
+    score++;
+    objArray[globalI].score++;
+    // render new elements
+    if(globalI < 10){
+        render();
+    }else if(globalI === 10){
+        drawChart();
+    }else{}
+}
 // keyboard even handler section
 const map = [];
 onkeydown = onkeyup = function(e){ //eslint-disable-line
-    const ele = document.getElementById('quiz');
 
     e = e || event;
     map[e.keyCode] = e.type == 'keydown';
@@ -99,54 +118,18 @@ onkeydown = onkeyup = function(e){ //eslint-disable-line
     if(objArray[globalI].keys.length === 2){
         // check if keys inputted are correct for the object instance
         if(map[objArray[globalI].keyCode[0]] && map[objArray[globalI].keyCode[1]]){
-            // remove elements from page
-            while(ele.hasChildNodes()){
-                ele.removeChild(ele.lastChild);
-            }
-            // track what question you're on
-            globalI++;
-            // resets timer
-            a = 20;
-            // track score
-            score++;
-            objArray[globalI].score++;
-            // render new elements
-            if(globalI < 10){
-                render();
-            }else if(globalI === 10){
-                drawChart();
-            }else{}
+            moveForward();     
         }
     }
 
     if(objArray[globalI].keys.length === 3){
         if(map[objArray[globalI].keyCode[0]] && map[objArray[globalI].keyCode[1]] && map[objArray[globalI].keyCode[2]]){
-            while(ele.hasChildNodes()){
-                ele.removeChild(ele.lastChild);
-            }
-            globalI++;
-            a = 20;
-            score++;
-            if(globalI < 10){
-                render();
-            }else if(globalI === 10){
-                drawChart();
-            }else{}
+            moveForward();
         }
     }
     if(objArray[globalI].keys.length === 1){
         if(map[objArray[globalI].keyCode[0]]){
-            while(ele.hasChildNodes()){
-                ele.removeChild(ele.lastChild);
-            }
-            globalI++;
-            a = 20;
-            score++;
-            if(globalI < 10){
-                render();
-            }else if(globalI === 10){
-                drawChart();
-            }else{}
+            moveForward();
         }
     }
 };
@@ -218,4 +201,9 @@ function drawChart () {
             }
         }
     );
+}
+function incrementGlobalI(){
+    if (globalI < objArray.length - 1)  {
+        globalI++;
+    }
 }
